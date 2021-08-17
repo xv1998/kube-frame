@@ -1,0 +1,1 @@
+#! /usr/bin/env node  使用node去解释脚本

@@ -1,0 +1,17 @@
+.DS_Store
+.cache
+.history
+coverage/
+node_modules/
+/scripts/cache/
+dist/
+dll/
+**/*.log
+output/
+package-json.lock
+package-lock.json
+# yarn.lock
+.cache/
+.idea
+.vscode
+.history
