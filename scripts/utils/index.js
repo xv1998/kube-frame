@@ -1,7 +1,6 @@
 const fs = require('fs');
-const path = require('path');
 const Log = require('./log');
-
+const path = require('path');
 
 const pathResolve = dir => {
   if(typeof dir !== 'string') {

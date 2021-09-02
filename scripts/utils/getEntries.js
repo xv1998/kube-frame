@@ -1,7 +1,6 @@
 const fs = require('fs');
 const glob = require('glob');
-const { Log, pathResolve } = require('./index');
-const log = new Log();
+const { pathResolve } = require('./index');
 
 module.exports = (dir) => {
   // 获取目录下的制定文件

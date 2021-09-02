@@ -1,11 +1,11 @@
 const webpack = require('webpack');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackDevServe = require('webpack-dev-server');
 const EntryPlugin = require("webpack/lib/EntryPlugin");
 const devConfig = require('./config.dev');
 const { Log, pathResolve } = require('../utils');
 const devServerConfig = require('./config.devServe');
-const getPageEntries = require('../utils/getEntries');
+const getPageEntries = require('../utils/getEntries')
 let entries = getPageEntries('projects/*');
 let entryNames = Object.keys(entries);
 let buildNewEntry = false;
@@ -14,12 +14,13 @@ const buildedSet = new Set(); // 记录构建项目，避免重复构建
 const log = new Log();
 
 const getHTMLPlugin = app => {
-  return new HTMLWebpackPlugin({
+  return new HtmlWebpackPlugin({
     title: entries[app].title,
     filename: entries[app].filename,
     template: entries[app].template,
-    inject: 'body',
-    chunks: [app]
+    inject: true,
+    chunks: [app],
+    app
   })
 }
 
@@ -28,7 +29,10 @@ const handleMulitEntry = (app, _paths, compiler) => {
   for (const entry of path) {
     new EntryPlugin(process.cwd(), entry, app).apply(compiler);
   }
-  getHTMLPlugin(app).apply(compiler);
+  compiler.hooks.compile.tap('updateHTML', () => {
+    getHTMLPlugin(app).apply(compiler);
+    compiler.hooks.initialize.call();
+  })
 }
 
 const initDevConfigration = () => {
@@ -51,13 +55,14 @@ const initDevConfigration = () => {
 const hotReload = (server, compiler, devServerOption) => {
   let hot = false;
   let initial = false;
+
   compiler.hooks.compile.tap('hot',()=>{
     if(!buildNewEntry){
       hot = true;
     }
     log.ln().yellow('热更新');
   })
-
+  
   compiler.hooks.afterEmit.tap('done',()=>{
     log.ln().yellow('编译结束');
     if(!initial){
@@ -72,10 +77,6 @@ const hotReload = (server, compiler, devServerOption) => {
         buildNewEntry = false;
       }
     }
-  })
-  compiler.hooks.assetEmitted.tap('checkFile',(file, { content, source, outputPath, compilation, targetPath })=>{
-    log.ln().yellow(file);
-    
   })
 }
 
@@ -113,17 +114,15 @@ const listenHtml = (server, compiler) => {
                 }
                 res.set('content-type', 'text/html');
                 res.send(result);
+                res.end();
               }
             )
           })
         }
       }else {
-        res.redirect('/projects/dist/404.html');
-      }     
-    }else {
-      res.redirect('/projects/dist/404.html');
+        res.redirect('/projects/404.html');
+      }
     }
-    res.end();
   })
 }
 

@@ -6,8 +6,8 @@ const commonConfig = require('./config.common');
 const devConfig = {
   mode: "development",
   output: {
-    path: pathResolve('./dist'),
-    publicPath: '/projects/',
+    path: pathResolve('./dist'), // build产物路径
+    publicPath: '/projects/', // dev下是内存代码的地址，pro下是线上资源地址
     filename: '[name].bundle.js',
     chunkFilename: '[name].bundle.js', // demand-loaded filename
   },
