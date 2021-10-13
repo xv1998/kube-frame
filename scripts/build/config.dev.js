@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const { pathResolve } = require('../utils');
 const { merge } = require('webpack-merge');
+const ESLintPlugin = require('eslint-webpack-plugin');
 const commonConfig = require('./config.common');
 
 const devConfig = {
@@ -24,7 +25,8 @@ const devConfig = {
       __RN__: 'false'
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.ProgressPlugin()
+    new webpack.ProgressPlugin(),
+    new ESLintPlugin()
   ]
 }
 
