@@ -1,5 +1,5 @@
 const fs = require('fs');
-const Log = require('./log');
+const {TipsLog, Log } = require('./log');
 const path = require('path');
 
 const pathResolve = dir => {
@@ -12,7 +12,18 @@ const pathResolve = dir => {
   return path.resolve(__dirname, '..', '..',dir);
 }
 
+const stat = (path) => {
+  return fs.statSync(pathResolve(path));
+};
+
+const exist = (path) => {
+  return fs.existsSync(pathResolve(path));
+};
+
 module.exports = {
   pathResolve,
+  exist,
+  stat,
+  TipsLog,
   Log
 }

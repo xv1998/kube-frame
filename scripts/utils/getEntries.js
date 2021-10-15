@@ -1,24 +1,25 @@
 const fs = require('fs');
 const glob = require('glob');
-const { pathResolve } = require('./index');
+const { pathResolve, exist, stat } = require('./index');
 
 module.exports = (dir) => {
   // 获取目录下的制定文件
   return glob.sync(dir).reduce((ob, curr)=>{
-  let configPath = pathResolve(curr+'/config.js');
+  let configPath = curr+'/config.js';
     try{
-      fs.statSync(configPath);
+      stat(configPath);
     }catch(e){
       return ob;
     }
-    if(fs.existsSync(configPath)){
-      const conf = require(configPath);
+    if(exist(configPath)){
+      const conf = require(pathResolve(configPath));
       const app = curr.split('/').pop();
+      const entryFile = exist(curr + '/index.tsx') ? '/index.tsx' : '/index.js'
       ob[app] = {
         filename: `${app}.html`,
         title: conf.title,
         projectPath: curr,
-        entry: pathResolve(curr + '/index.tsx'),
+        entry: pathResolve(curr + entryFile),
         template: pathResolve(curr+ '/index.html')
       }
     }

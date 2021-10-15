@@ -1,7 +1,6 @@
-const { pathResolve, Log } = require('../utils');
+const { pathResolve } = require('../utils');
 const getPageEntries = require('../utils/getEntries');
 const entries = getPageEntries('projects/*');
-let log = new Log();
 
 module.exports = (project = '') => {
   const aliasProject = {};
@@ -14,7 +13,7 @@ module.exports = (project = '') => {
       filename: '[name].js'
     },
     resolve: {
-      extensions: ['.js','.vue','.json','.jsx','.tsx'],
+      extensions: ['.js','ts','.json','.jsx','.tsx'],
       alias: Object.assign({
         '@': pathResolve('./'),
         '~': pathResolve('./'),
@@ -24,6 +23,10 @@ module.exports = (project = '') => {
       rules: [
         { test: /\.tsx?$/, loader: "ts-loader" }
       ]
-    }
+    },
+    externals: {
+      "react": "React",
+      "react-dom": "ReactDOM"
+    },
   }
 }

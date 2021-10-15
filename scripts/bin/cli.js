@@ -1,1 +1,2 @@
-#! /usr/bin/env node  使用node去解释脚本
+#! /usr/bin/env node
+require('../local-cli/index.js');

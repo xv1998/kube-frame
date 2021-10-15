@@ -36,7 +36,12 @@ const handleMulitEntry = (app, _paths, compiler) => {
 }
 
 const initDevConfigration = () => {
-  hotEntry = [require.resolve('webpack/hot/dev-server')];
+  hotEntry = [
+    require.resolve('webpack-dev-server/client') +
+  (devServerConfig.host
+    ? `?http://${devServerConfig.host}/sockjs-node/info`
+    : `?http://localhost:${devServerConfig.port}/sockjs-node/info`),
+    require.resolve('webpack/hot/dev-server')];
   const page404 = hotEntry.concat([entries['404'].entry]);
   // 默认构建 404 页面
   devConfig.entry = {

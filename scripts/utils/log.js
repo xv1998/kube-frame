@@ -37,4 +37,39 @@ class Log{
     return this;
   }
 }
-module.exports = Log;
+
+class TipsLog {
+  constructor(){
+    this.breakLine = false;
+    this.log = null;
+    this.init();
+  }
+  init(){
+    this.log = (chalkColor, text) => {
+      console.log(`${this.breakLine ? '\n' : ''}${chalkColor}${text}`);
+      this.breakLine = false;
+    }
+  }
+  ln(){
+    this.breakLine = true;
+    return this;
+  }
+  error(text) {
+    this.log(chalk.bold.red('❌ Error: '), text);
+    return this;
+  }
+  success(text) {
+    this.log(chalk.bold.green('✅ Success: '), text);
+    return this;
+  }
+  info(text) {
+    this.log(chalk.bold.yellow('⚠️ Info: '), text);
+    return this;
+  }
+  tips(text) {
+    this.log(chalk.bold.blue('✨ Tips: '), text);
+    return this;
+  }
+}
+
+module.exports={ Log, TipsLog };

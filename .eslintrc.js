@@ -1,7 +1,5 @@
 module.exports = {
-  extends: {
-    "plugin:@typescript-eslint/recommended",
-  },
+  extends: ["plugin:@typescript-eslint/recommended"],
   parserOptions: {
     ecmaVersion: 9,
     sourceType: "module",
