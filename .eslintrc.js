@@ -1,5 +1,8 @@
 module.exports = {
-  extends: ["plugin:@typescript-eslint/recommended"],
+  extends: [
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
   parserOptions: {
     ecmaVersion: 9,
     sourceType: "module",
@@ -7,7 +10,7 @@ module.exports = {
       jsx: true
     },
   },
-  parser: "@typescript-eslint/parser",
+  parser: 'babel-eslint',
   env: {
     browser: true,
     commonjs: true,
@@ -41,7 +44,6 @@ module.exports = {
     'no-script-url': 'off',
     'no-undefined': 'off',
     "@typescript-eslint/camelcase": "off",
-    "@typescript-eslint/no-use-before-define": ["error", { variables: false, functions: false }],
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-member-accessibility": "off",

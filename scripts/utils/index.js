@@ -1,7 +1,9 @@
 const fs = require('fs');
 const {TipsLog, Log } = require('./log');
 const path = require('path');
-
+const isProd = process.env.NODE_ENV === 'production';
+const isDev = process.env.NODE_ENV === 'development';
+const isTest = process.env.NODE_ENV === 'test';
 const pathResolve = dir => {
   if(typeof dir !== 'string') {
     return '';
@@ -21,6 +23,9 @@ const exist = (path) => {
 };
 
 module.exports = {
+  isProd,
+  isDev,
+  isTest,
   pathResolve,
   exist,
   stat,

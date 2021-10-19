@@ -2,8 +2,8 @@ const webpack = require('webpack');
 const { pathResolve } = require('../utils');
 const { merge } = require('webpack-merge');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const commonConfig = require('./config.common');
-
 const devConfig = {
   mode: "development",
   output: {
@@ -26,6 +26,15 @@ const devConfig = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.ProgressPlugin(),
+    new ForkTsCheckerWebpackPlugin({
+      typescript: {
+        diagnosticOptions: {
+          semantic: true,
+          syntactic: true,
+        },
+      },
+      async: false
+    }),
     new ESLintPlugin()
   ]
 }
