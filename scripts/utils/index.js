@@ -22,12 +22,22 @@ const exist = (path) => {
   return fs.existsSync(pathResolve(path));
 };
 
+const read = (path) => {
+  return fs.readFileSync(path, {encoding: 'utf8'})
+}
+
+const copy = (des, src) => {
+  fs.writeFileSync(des, read(src));
+}
+
 module.exports = {
   isProd,
   isDev,
   isTest,
   pathResolve,
   exist,
+  read,
+  copy,
   stat,
   TipsLog,
   Log

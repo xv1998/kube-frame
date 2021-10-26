@@ -10,7 +10,8 @@ const COMMAMD = {
 }
 
 const PROMPT_QES = {
-  TYPE: 'Select the project type'
+  TYPE: 'Select the project type',
+  OPTIONS: 'Other options?'
 }
 program
   .version($package.version, '-v, --version')
@@ -25,7 +26,7 @@ program
   .command(COMMAMD.CREATE)
   .argument('<projectName>')
   .option('--ts', 'Typescript project')
-  .option('--rn', 'React Native project')
+  .option('--js', 'Javascript project')
   .description('create a project')
   .action(function(proName, options){
     let opt = Object.keys(options);
@@ -35,13 +36,19 @@ program
     }else if(opt.length){
       create(proName, opt[0]);
     }else {
-      inquirer.prompt([{
+      inquirer.prompt([
+        {
         type: 'list',
         name: PROMPT_QES.TYPE,
-        choices: ['ts', 'rn']
+        choices: ['ts', 'js']
+      },{
+        type: 'checkbox',
+        name: PROMPT_QES.OPTIONS,
+        choices: ['redux', 'router']
       }]).then((answers) => {
         let type = answers[PROMPT_QES.TYPE];
-        create(proName, type);
+        let options = answers[PROMPT_QES.OPTIONS];
+        create(proName, type, options);
       })
     }
   })

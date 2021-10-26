@@ -1,6 +1,7 @@
 module.exports = {
   extends: [
     "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended"
   ],
   parserOptions: {
@@ -35,7 +36,14 @@ module.exports = {
       }
     ],
     complexity: ['error', { max: 70 }],
+    "no-loop-func": "off",
+    "no-script-url": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": 0,
     'react/no-unknown-property': 'off',
+    "react/prop-types" : "off",
+    "react/sort-comp": "off",
     'template-curly-spacing': 'off',
     'react/no-string-refs': 'off',
     'react/jsx-indent': ['error', 2],
@@ -49,9 +57,7 @@ module.exports = {
     "@typescript-eslint/explicit-member-accessibility": "off",
     "@typescript-eslint/ban-ts-ignore": "off",
     "@typescript-eslint/no-var-requires": "off",
-    "no-unused-vars": "error",
-    "typescript/member-ordering": "off",
-    "react/sort-comp": "off"
+    "typescript/member-ordering": "off"
   },
   settings: {
     'html/html-extensions': ['.html', '.ejs'],
