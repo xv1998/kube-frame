@@ -13,6 +13,10 @@ const devConfig = {
     chunkFilename: '[name].bundle.js', // demand-loaded filename
   },
   devtool: 'eval-cheap-module-source-map',
+  devServer: {
+    historyApiFallback: true,
+    hot: true,
+  },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
