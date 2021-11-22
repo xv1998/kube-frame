@@ -27,14 +27,7 @@ module.exports = {
   },
   plugins: ['json', 'html', 'jest', 'react'],
   rules: {
-    indent: [
-      'error',
-      2,
-      {
-        SwitchCase: 1,
-        flatTernaryExpressions: true
-      }
-    ],
+    "react/jsx-indent-props": ["error", 2],
     complexity: ['error', { max: 70 }],
     "no-loop-func": "off",
     "no-script-url": "off",

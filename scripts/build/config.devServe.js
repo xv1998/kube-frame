@@ -10,11 +10,13 @@ module.exports = {
     '/projects/': {
       // 格式化请求地址
       bypass: function (req) {
-        const isEndParam = req.originalUrl.replace(/[#|\?].*/, '').endsWith('/');
-        const isEndIndex = req.originalUrl.replace(/[#|\?].*/, '').endsWith('index.html');
-        if (req.headers?.accept.indexOf('html') !== -1 && (isEndParam || isEndIndex)) {
-          const originalUrl = req.originalUrl.replace(/[#|\?].*/, '');
-          const path = originalUrl.substr(0, originalUrl.length - (isEndParam ? 1 : 11)) + '.html';
+        const rawUrl = req.originalUrl.replace(/[#|\?].*/, '')
+        const isEndParam = rawUrl.endsWith('/');
+        const isEndIndex = rawUrl.endsWith('index.html');
+        const isEndRouter = rawUrl.match(/\//g).length > 2;
+        if (req.headers?.accept.indexOf('html') !== -1 && (isEndParam || isEndIndex || isEndRouter)) {
+          const index = rawUrl.slice(1).lastIndexOf('/');
+          const path = rawUrl.substr(0, index + 1) + '.html';
           req.originalUrl = path;
           return req.originalUrl;
         }

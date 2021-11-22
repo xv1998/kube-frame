@@ -11,7 +11,7 @@ const COMMAMD = {
 
 const PROMPT_QES = {
   TYPE: 'Select the project type',
-  OPTIONS: 'Other options?'
+  OPTIONS: 'Need Redux?'
 }
 program
   .version($package.version, '-v, --version')
@@ -44,7 +44,7 @@ program
       },{
         type: 'checkbox',
         name: PROMPT_QES.OPTIONS,
-        choices: ['redux', 'router']
+        choices: ['redux']
       }]).then((answers) => {
         let type = answers[PROMPT_QES.TYPE];
         let options = answers[PROMPT_QES.OPTIONS];
